@@ -86,7 +86,7 @@ public class TestIBANSchemes {
         // FR:BANK=n5;BRANCH=n5;ACC=c13
         final String testIban = "FR14 2004 1010 0505 0001 3M02 606";
         final IBAN frIBAN = IBAN.parse(testIban);
-        assertThat(frIBAN.toString(), is(testIban));
+        assertThat(frIBAN.toString(), is("FR142********************06"));
     }
 
     @Test
