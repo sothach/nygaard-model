@@ -33,11 +33,9 @@ import org.seefin.nygaard.model.locations.ISO3166;
  * @author roy.phiilips
  *
  */
-public class IBANScheme
-	implements Serializable
+public class IBANScheme implements Serializable
 {
-    private enum PartCode
-	{
+    private enum PartCode {
     	BANK, BRANCH, ACC
 	}
 	
@@ -53,24 +51,20 @@ public class IBANScheme
 	private final ISO3166 countryCode;
 	private String errorMessage;
 	
-	/**
-	 * Constructor called from the static scheme loader to instantiate a scheme
-	 * from the parsed specification, as represented by the parameters below
-	 * 
-	 * @param cc unique name of the scheme (key)
-	 * @param rules set of rules defining the parts
-	 * @param length 
-	 * @param length total length of a number in this scheme
-	 */
-	private IBANScheme ( ISO3166 cc, Map<PartCode, IBANRule> rules, int length)
-	{
+	/** Constructor called from the static scheme loader to instantiate a scheme
+	  * from the parsed specification, as represented by the parameters below
+	  * 
+	  * @param cc unique name of the scheme (key)
+	  * @param rules set of rules defining the parts
+	  * @param length 
+	  * @param length total length of a number in this scheme */
+	private IBANScheme ( final ISO3166 cc, final Map<PartCode, IBANRule> rules, final int length) {
 		this.countryCode = cc;
-		this.rules = rules;
+		this.rules = ImmutableMap.copyOf(rules);
 		this.length = length;
 	}
 	
-	/**
-	 * Create an IBAN instance from the supplier parameters, if conforming
+	/** Create an IBAN instance from the supplier parameters, if conforming
 	 * to a registered IVBAN scheme
 	 * @param countryCode ISO3166 Alpha-2 country code (mandatory)
 	 * @param bankCode (mandatory)
@@ -79,31 +73,16 @@ public class IBANScheme
 	 * @return new IBAN instance initialized from parameters
 	 * @throws IllegalArgumentException if mandatory parameter is null or blank,
 	 * 			or if the 
-	 * @throws InvalidIBANException if the constructed IBAN does not conform to a registered scheme
-	 */
-	public static IBAN
-	create ( ISO3166 countryCode, String bankCode, String branchCode, String accountNumber)
-	{
-		if ( countryCode == null)
-		{
-			throw new IllegalArgumentException ("CountryCode cannot be null");
-		}
-		if ( bankCode == null || bankCode.isEmpty ())
-		{
-			throw new IllegalArgumentException ("BankCode cannot be null/blank");
-		}
-		if ( accountNumber == null || accountNumber.isEmpty ())
-		{
-			throw new IllegalArgumentException ("AccountNumber cannot be null/blank");
-		}
-		if ( branchCode == null)
-		{
-			branchCode = "";
-		}
-		String translated = translateChars ( bankCode+branchCode+accountNumber+countryCode+"00");
-		int checksum = 98 - modulo97 ( translated);
-		return new IBAN ( 
-				String.format ( "%s%02d%s%s%s", countryCode.toString (), checksum, bankCode, branchCode, accountNumber));
+	 * @throws InvalidIBANException if the constructed IBAN does not conform to a registered scheme*/
+	public static IBAN create ( 
+	  final ISO3166 countryCode, final String bankCode, final String branchCode, final String accountNumber) {
+	  Preconditions.checkNotNul(countryCode,"CountryCode cannot be null");
+	  Preconditions.checkArgument(bankCode != null && !bankCode.isEmpty(),"BankCode cannot be null/blank");
+	  Preconditions.checkArgument( accountNumber != null && !accountNumber.isEmpty(),"AccountNumber cannot be null/blank");
+	  final String translated = translateChars ( bankCode+branchCode+accountNumber+countryCode+"00");
+	  final int checksum = 98 - modulo97 ( translated);
+	  return new IBAN ( 
+				String.format ( "%s%02d%s%s%s", countryCode.toString (), checksum, bankCode, branchCode != null ? branchCode : "", accountNumber));
 	}
 
 	/** @return inclusive length of an IBAN in this scheme */
