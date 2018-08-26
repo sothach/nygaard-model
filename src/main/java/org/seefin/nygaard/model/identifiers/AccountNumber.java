@@ -4,11 +4,10 @@ import java.util.regex.Pattern;
 
 /**
  * @author phillipsr
- *
  */
 public abstract class AccountNumber implements Comparable<AccountNumber>, Identity {
-    private static final String  STARS = "******************************";
-    private static final String  PUNCTUATION = " \\.,_/:;-";
+    private static final String STARS = "******************************";
+    private static final String PUNCTUATION = " \\.,_/:;-";
     private static final Pattern PUNCTUATIONCleaner = Pattern.compile("[" + PUNCTUATION + "]");
 
     @Override
@@ -19,7 +18,7 @@ public abstract class AccountNumber implements Comparable<AccountNumber>, Identi
         if (other == null || other.getClass() != this.getClass()) {
             return false;
         }
-        return toString().equals(((AccountNumber)other).toString());
+        return toString().equals(((AccountNumber) other).toString());
     }
 
     @Override
@@ -32,9 +31,11 @@ public abstract class AccountNumber implements Comparable<AccountNumber>, Identi
         return toString().compareTo(other.toString());
     }
 
-    /** @return a copy of the supplied <code>code</code> with insignificant
+    /**
+     * @return a copy of the supplied <code>code</code> with insignificant
      * characters removed:<br/>
-     * Spaces, slash, period, comma, underscore, colon, semicolon */
+     * Spaces, slash, period, comma, underscore, colon, semicolon
+     */
     protected static String sanitize(String code) {
         if (code == null) {
             return null;
@@ -42,11 +43,13 @@ public abstract class AccountNumber implements Comparable<AccountNumber>, Identi
         return PUNCTUATIONCleaner.matcher(code).replaceAll("");
     }
 
-    /** @return a version of the supplied account number, with all but
-     * 			the specified initial and final portion replaced by stars
-     * @param value of the account number
+    /**
+     * @param value   of the account number
      * @param initial length to be displayed in clear
-     * @param end length to be displayed in clear */
+     * @param end     length to be displayed in clear
+     * @return a version of the supplied account number, with all but
+     * the specified initial and final portion replaced by stars
+     */
     protected static String obsusticate(final String value, int initial, int end) {
         int length = value.length();
         initial = initial < length ? initial : 1;

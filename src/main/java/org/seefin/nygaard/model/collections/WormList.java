@@ -16,130 +16,110 @@ import java.util.ListIterator;
  * Note: this collection cannot implement the java.util.List interface, as this would
  * not be type-safe (mutating operations would be visible, yet have to throw an
  * exception)
- * 	
- * @param <T> Data type for List values
- * 
- * @author phillipsr
  *
+ * @param <T> Data type for List values
+ * @author phillipsr
  */
 public final class WormList<T>
-	implements Iterable<T>, Serializable
-{
-	private final List<T> list;
-	
-	public WormList ( Collection<T> data)
-	{
-		if ( data == null || data.isEmpty () == true)
-		{
-			throw new IllegalArgumentException ("ReadOnlyList requires initial data");
-		}
-		list = Collections.unmodifiableList (new ArrayList<>(data));
-	}
-	
-	public int size ()
-	{
-		return list.size();
-	}
+        implements Iterable<T>, Serializable {
+    private final List<T> list;
 
-	public boolean isEmpty ()
-	{
-		return list.isEmpty ();
-	}
+    public WormList(Collection<T> data) {
+        if (data == null || data.isEmpty() == true) {
+            throw new IllegalArgumentException("ReadOnlyList requires initial data");
+        }
+        list = Collections.unmodifiableList(new ArrayList<>(data));
+    }
 
-	public boolean contains ( T o)
-	{
-		return list.contains ( o);
-	}
+    public int size() {
+        return list.size();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @throws UnsupportedOperationException if caller attempts to modify
-	 * 			the underlying list via the returned iterator (e.g., remove()) 
-	 */
-	@Override
-	public Iterator<T> iterator ()
-	{
-		return list.iterator ();
-	}
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
 
-	public Object[] toArray ()
-	{
-		return list.toArray ();
-	}
+    public boolean contains(T o) {
+        return list.contains(o);
+    }
 
-	public <E> E[] toArray ( E[] prototype)
-	{
-		return list.toArray ( prototype);
-	}
+    /**
+     * {@inheritDoc}
+     *
+     * @throws UnsupportedOperationException if caller attempts to modify
+     *                                       the underlying list via the returned iterator (e.g., remove())
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return list.iterator();
+    }
 
-	/**
-	 * Are all the elements in the collection <code>c</code>
-	 * present in this list?
-	 * @param c collection to be checked for containment in this list  
-	 * @return true if this list contains all of the elements of the specified collection 
-	 * @throws ClassCastException if the types of one or more elements in the specified
-	 * 				collection are incompatible with this list (optional) 
-	 * @throws NullPointerException if the specified collection contains one or more null
-	 * 				elements and this list does not permit null elements (optional), 
-	 * 				or if the specified collection is null
-	 */
-	public boolean containsAll ( Collection<T> c)
-	{
-		return list.containsAll ( c);
-	}
+    public Object[] toArray() {
+        return list.toArray();
+    }
 
-	public T get ( int index)
-	{
-		return list.get ( index);
-	}
+    public <E> E[] toArray(E[] prototype) {
+        return list.toArray(prototype);
+    }
 
-	public int indexOf ( T o)
-	{
-		return list.indexOf ( o);
-	}
+    /**
+     * Are all the elements in the collection <code>c</code>
+     * present in this list?
+     *
+     * @param c collection to be checked for containment in this list
+     * @return true if this list contains all of the elements of the specified collection
+     * @throws ClassCastException   if the types of one or more elements in the specified
+     *                              collection are incompatible with this list (optional)
+     * @throws NullPointerException if the specified collection contains one or more null
+     *                              elements and this list does not permit null elements (optional),
+     *                              or if the specified collection is null
+     */
+    public boolean containsAll(Collection<T> c) {
+        return list.containsAll(c);
+    }
 
-	public int lastIndexOf ( T o)
-	{
-		return list.lastIndexOf ( o);
-	}
+    public T get(int index) {
+        return list.get(index);
+    }
 
-	public ListIterator<T> listIterator ()
-	{
-		return list.listIterator ();
-	}
+    public int indexOf(T o) {
+        return list.indexOf(o);
+    }
 
-	public ListIterator<T> listIterator ( int index)
-	{
-		return list.listIterator ( index);
-	}
+    public int lastIndexOf(T o) {
+        return list.lastIndexOf(o);
+    }
 
-	public WormList<T> subList ( int fromIndex, int toIndex)
-	{
-		return new WormList<> ( list.subList ( fromIndex, toIndex));
-	}
-	
-	/**
-	 * @return a regular (e.g., read/write) copy of this list
-	 */
-	public List<T>
-	toList()
-	{
-		return new ArrayList<>(list);
-	}
-	
-	@Override
-	public String
-	toString()
-	{
-		return list.toString ();
-	}
-	
-	@Override
-	public int
-	hashCode()
-	{
-		return list.hashCode();
-	}
+    public ListIterator<T> listIterator() {
+        return list.listIterator();
+    }
+
+    public ListIterator<T> listIterator(int index) {
+        return list.listIterator(index);
+    }
+
+    public WormList<T> subList(int fromIndex, int toIndex) {
+        return new WormList<>(list.subList(fromIndex, toIndex));
+    }
+
+    /**
+     * @return a regular (e.g., read/write) copy of this list
+     */
+    public List<T>
+    toList() {
+        return new ArrayList<>(list);
+    }
+
+    @Override
+    public String
+    toString() {
+        return list.toString();
+    }
+
+    @Override
+    public int
+    hashCode() {
+        return list.hashCode();
+    }
 
 }

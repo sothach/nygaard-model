@@ -11,23 +11,22 @@ import org.seefin.nygaard.model.parties.Party;
 
 /**
  * Specialization of account representing an electronic wallet
- * @author phillipsr
  *
+ * @author phillipsr
  */
 public class ElectronicWallet
-	extends Account
-{
-	/**
-	 * Create a new electronic wallet account instance
-	 * @param owner of the new account
-	 * @param provider of the account service
-	 * @param walletCurrency of the account balance, etc.
-	 * @throws IllegalArgumentException if any of the parameters are null
-	 */
-	public ElectronicWallet ( Party owner, Organization provider, Currency walletCurrency)
-	{
-		super ( owner, provider, walletCurrency, new EWalletAccountNumber ( (MSISDN)owner.getId () ));
-	}
-	
+        extends Account {
+    /**
+     * Create a new electronic wallet account instance
+     *
+     * @param owner          of the new account
+     * @param provider       of the account service
+     * @param walletCurrency of the account balance, etc.
+     * @throws IllegalArgumentException if any of the parameters are null
+     */
+    public ElectronicWallet(Party owner, Organization provider, Currency walletCurrency) {
+        super(owner, provider, walletCurrency, new EWalletAccountNumber((MSISDN) owner.getId()));
+    }
+
 
 }

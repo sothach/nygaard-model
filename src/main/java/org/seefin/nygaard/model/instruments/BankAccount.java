@@ -10,16 +10,13 @@ import org.seefin.nygaard.model.parties.Party;
 
 /**
  * @author phillipsr
- *
  */
 public class BankAccount
-	extends Account
-{
+        extends Account {
 
-	public BankAccount ( Party owner, FinancialInstitution provider, AccountNumber accountId, Currency accountCurrency)
-	{
-		super ( owner, provider, accountCurrency, accountId);
-	}
+    public BankAccount(Party owner, FinancialInstitution provider, AccountNumber accountId, Currency accountCurrency) {
+        super(owner, provider, accountCurrency, accountId);
+    }
 
 
 }

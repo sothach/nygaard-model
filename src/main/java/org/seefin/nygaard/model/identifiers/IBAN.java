@@ -5,9 +5,10 @@ import org.seefin.nygaard.model.locations.ISO3166;
 import com.google.common.base.Preconditions;
 
 
-/**  Representation of an International Bank Account Number (IBAN) 
+/**
+ * Representation of an International Bank Account Number (IBAN)
  * <p/>
- *<pre>
+ * <pre>
  * +--------------------------------------------------+
  * | IBAN                                             |
  * | +---------+------------------------------------+ |
@@ -17,21 +18,24 @@ import com.google.common.base.Preconditions;
  * | |         | +------+--------+----------------+ | |
  * | +---------+------------------------------------+ |
  * +--------------------------------------------------+
- * </pre> 
+ * </pre>
  * The IBAN consists of a ISO 3166-1 alpha-2 country code, followed by two check digits,
- * and up to thirty alphanumeric characters for the domestic bank account number, the 
+ * and up to thirty alphanumeric characters for the domestic bank account number, the
  * BBAN (Basic Bank Account Number), which itself may be composed of bank code, branch
- * code and account number, as specified by the national scheme (see {@link IBANScheme.java}) */
+ * code and account number, as specified by the national scheme (see {@link IBANScheme.java})
+ */
 public final class IBAN extends AccountNumber {
-    private final String  value;
+    private final String value;
     private final ISO3166 countryCode;
-    private IBANScheme    scheme;
+    private IBANScheme scheme;
 
-    /** Create an IBAN from the supplied string
-     * 
+    /**
+     * Create an IBAN from the supplied string
+     *
      * @param value of the IBAN, may contain punctuation
-     * @throws IllegalStateException if the supplied value does 
-     * 			not represent a valid IBAN code */
+     * @throws IllegalStateException if the supplied value does
+     *                               not represent a valid IBAN code
+     */
     public IBAN(final String code) {
         Preconditions.checkNotNull(code, "IBAN string cannot be null");
         String value = sanitize(code);
@@ -50,17 +54,19 @@ public final class IBAN extends AccountNumber {
     }
 
 
-    /** @return an IBAN parsed the supplied string, 
-     *  @param value of the IBAN, may contain punctuation
-     *  @throws IllegalArgumentException if the supplied value does 
-     * 			not represent a valid IBAN code */
+    /**
+     * @param value of the IBAN, may contain punctuation
+     * @return an IBAN parsed the supplied string,
+     * @throws IllegalArgumentException if the supplied value does
+     *                                  not represent a valid IBAN code
+     */
     public static IBAN parse(String value) {
         return new IBAN(value);
     }
 
     /**
      * Create an IBAN from its component parts
-     * 
+     *
      * @param countryCode
      * @param bankCode
      * @param branchCode
@@ -90,28 +96,38 @@ public final class IBAN extends AccountNumber {
         return new BBAN(value.substring(4));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String externalForm() {
         return value;
     }
 
-    /** @return the BankCode segment of this IBAN */
+    /**
+     * @return the BankCode segment of this IBAN
+     */
     public String getBankCode() {
         return scheme.getBankCode(value);
     }
 
-    /** @return the BranchCode segment of this IBAN */
+    /**
+     * @return the BranchCode segment of this IBAN
+     */
     public String getBranchCode() {
         return scheme.getBranchCode(value);
     }
 
-    /** @return the AccountNumber segment of this IBAN */
+    /**
+     * @return the AccountNumber segment of this IBAN
+     */
     public String getAccountNumber() {
         return scheme.getAccountNumber(value);
     }
 
-    /** @return the CountryCode segment of this IBAN */
+    /**
+     * @return the CountryCode segment of this IBAN
+     */
     public ISO3166 getCountryCode() {
         return countryCode;
     }

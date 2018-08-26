@@ -11,15 +11,13 @@ import org.seefin.nygaard.model.identifiers.Identity;
  * <p/>
  * Some common patterns may emerge that would enable generic messages to be defined here,
  * watch this space
- *  
- * @author phillipsr
  *
+ * @author phillipsr
  */
 public interface Transaction
-	extends Serializable
-{
-	/**
-	 * @return the unique transaction identifier
-	 */
-	public Identity getIdentity();
+        extends Serializable {
+    /**
+     * @return the unique transaction identifier
+     */
+    public Identity getIdentity();
 }

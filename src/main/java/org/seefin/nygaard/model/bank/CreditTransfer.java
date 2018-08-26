@@ -6,24 +6,23 @@ import org.seefin.nygaard.model.financial.MonetaryAmount;
 
 /**
  * @author phillipsr
- *
  */
 public final class CreditTransfer
-	extends FinancialTransaction
-{
-	private final String text; // the reason for the payment (optional)
-	
-	/**
-	 * @param fromAccount
-	 * @param account
-	 * @param amount
-	 */
-	public CreditTransfer ( 
-			Account fromAccount, MonetaryAmount amount, Account toAccount)
-	{
-		super ( fromAccount, amount, toAccount);
-		this.text = "";
-	}
+        extends FinancialTransaction {
+    private final String text; // the reason for the payment (optional)
 
-	public String getText () { return text; }
+    /**
+     * @param fromAccount
+     * @param account
+     * @param amount
+     */
+    public CreditTransfer(
+            Account fromAccount, MonetaryAmount amount, Account toAccount) {
+        super(fromAccount, amount, toAccount);
+        this.text = "";
+    }
+
+    public String getText() {
+        return text;
+    }
 }

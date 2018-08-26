@@ -6,19 +6,16 @@ import org.seefin.nygaard.model.parties.Party;
 
 /**
  * @author phillipsr
- *
  */
 public class DebtorParty
-	extends PaymentParty
-{
+        extends PaymentParty {
 
-	/**
-	 * @param party
-	 * @param instrument
-	 */
-	public DebtorParty ( Party party, Instrument instrument)
-	{
-		super ( party, instrument);
-	}
+    /**
+     * @param party
+     * @param instrument
+     */
+    public DebtorParty(Party party, Instrument instrument) {
+        super(party, instrument);
+    }
 
 }

@@ -1,19 +1,14 @@
 package org.seefin.nygaard.model.identifiers;
 
+import org.junit.Test;
+import org.seefin.nygaard.model.locations.ISO3166;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import org.seefin.nygaard.model.identifiers.BBAN;
-import org.seefin.nygaard.model.identifiers.IBAN;
-import org.seefin.nygaard.model.identifiers.IBANScheme;
-import org.seefin.nygaard.model.identifiers.ISO9362;
-import org.seefin.nygaard.model.identifiers.InvalidIBANException;
-import org.seefin.nygaard.model.identifiers.NL_BBAN;
-import org.seefin.nygaard.model.locations.ISO3166;
+import static org.hamcrest.Matchers.is;
 
 
 public class TestIBANSchemes {
@@ -23,8 +18,8 @@ public class TestIBANSchemes {
             "SA03 8000 0000 6080 1016 7519", // Saudi Arabia
             "CH93 0076 2011 6238 5295 7", // Switzerland
             "IL62 0108 0000 0009 9999 999" // Israel	
-                                              };
-    private static final ISO3166  COUNTRY_IE  = ISO3166.valueOf("IE");
+    };
+    private static final ISO3166 COUNTRY_IE = ISO3166.valueOf("IE");
 
     /*
      * IE:BANK=c4;BRANCH=n6;ACC=n8
@@ -107,20 +102,18 @@ public class TestIBANSchemes {
     }
 
     @Test
-	public void
-	testSortList()
-	{
-		final List<IBAN> list = new ArrayList<>();
-		for ( String number : TestNumbers)
-		{
-			IBAN iban = IBAN.parse(number);  
-			list.add(iban);
-		}
-		Collections.sort(list);
-		final IBAN[] array = list.toArray(new IBAN[0]);
-		assertThat(array[0].externalForm(),is("CH9300762011623852957"));
-		assertThat(array[array.length-1].externalForm(), is("SA0380000000608010167519"));
-	}
+    public void
+    testSortList() {
+        final List<IBAN> list = new ArrayList<>();
+        for (String number : TestNumbers) {
+            IBAN iban = IBAN.parse(number);
+            list.add(iban);
+        }
+        Collections.sort(list);
+        final IBAN[] array = list.toArray(new IBAN[0]);
+        assertThat(array[0].externalForm(), is("CH9300762011623852957"));
+        assertThat(array[array.length - 1].externalForm(), is("SA0380000000608010167519"));
+    }
 
     @Test
     public void testAssemblerIBANIE() {
@@ -131,26 +124,26 @@ public class TestIBANSchemes {
     @Test
     public void testAssemblerIBANGB() {
         final IBAN gbNumber = IBAN.create(ISO3166.valueOf("GB"), "WEST", "123456", "98765432");
-        assertThat(gbNumber.externalForm(),is("GB82WEST12345698765432"));
+        assertThat(gbNumber.externalForm(), is("GB82WEST12345698765432"));
     }
 
     @Test
     public void testAssemblerIBAN() {
         final IBAN malteseNumber = IBAN.create(ISO3166.valueOf("MT"), "MALT", "01100", "0012345MTLCAST001S");
-        assertThat(malteseNumber.externalForm(),is("MT84MALT011000012345MTLCAST001S"));
+        assertThat(malteseNumber.externalForm(), is("MT84MALT011000012345MTLCAST001S"));
     }
 
     // Global Bank of Commerce
     @Test
     public void testAssemblerGBCIBAN() {
         final IBAN gbcNumber = IBAN.create(ISO3166.valueOf("AG"), "GBCL", "1268", "00000009539");
-        assertThat(gbcNumber.externalForm(),is("AG49GBCL126800000009539"));
+        assertThat(gbcNumber.externalForm(), is("AG49GBCL126800000009539"));
     }
 
     @Test
     public void testGuessSchemeAL() {
         IBAN alNumber = IBAN.parse("AL47 2121 1009 0000 0002 3569 8741");
-        assertThat(alNumber.getCountryCode(),is(ISO3166.valueOf("AL")));
+        assertThat(alNumber.getCountryCode(), is(ISO3166.valueOf("AL")));
     }
 
     @Test
@@ -164,20 +157,20 @@ public class TestIBANSchemes {
     @Test
     public void testParts() {
         final IBAN number1 = IBAN.parse("NO93 8601 1117 947");
-        assertThat(number1.getCountryCode(),is(ISO3166.valueOf("NO")));
-        assertThat(number1.getBankCode(),is("8601"));
-        assertThat(number1.getAccountNumber(),is("1117947"));
+        assertThat(number1.getCountryCode(), is(ISO3166.valueOf("NO")));
+        assertThat(number1.getBankCode(), is("8601"));
+        assertThat(number1.getAccountNumber(), is("1117947"));
     }
 
     @Test
     public void testGetBBAN_NL() {
         final IBAN number1 = IBAN.parse("NL39 RABO 0300 0652 64");
 
-        assertThat(number1.externalForm(),is("NL39RABO0300065264"));
+        assertThat(number1.externalForm(), is("NL39RABO0300065264"));
         final BBAN bban = number1.getBBAN();
-        assertThat(bban.externalForm(),is("RABO0300065264"));
+        assertThat(bban.externalForm(), is("RABO0300065264"));
         final NL_BBAN nlbban = NL_BBAN.create(number1.getAccountNumber());
-        assertThat(nlbban.externalForm(),is("0300065264"));
+        assertThat(nlbban.externalForm(), is("0300065264"));
     }
 
 
@@ -187,7 +180,7 @@ public class TestIBANSchemes {
             IBAN.parse("AE07 0331 2345 6789 0123 456");
         } catch (InvalidIBANException e) {
             assertThat(e.getCountryCode(), is(ISO3166.valueOf("AE")));
-            assertThat(e.getReason(),is("no scheme defined for country"));
+            assertThat(e.getReason(), is("no scheme defined for country"));
             throw e;
         }
     }

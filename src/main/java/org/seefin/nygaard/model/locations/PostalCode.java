@@ -4,11 +4,10 @@ import org.seefin.nygaard.model.identifiers.Identity;
 
 /**
  * Generic postal location identity
- * @author phillipsr
  *
+ * @author phillipsr
  */
 public interface PostalCode
-	extends Identity
-{
-	//
+        extends Identity {
+    //
 }

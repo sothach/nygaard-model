@@ -4,18 +4,15 @@ import org.seefin.nygaard.model.channels.Channel;
 
 /**
  * @author phillipsr
- *
  */
 public abstract class Command
-	extends Request
-{
+        extends Request {
 
-	/**
-	 * @param channel
-	 */
-	protected Command ( Channel channel)
-	{
-		super ( channel);
-	}
+    /**
+     * @param channel
+     */
+    protected Command(Channel channel) {
+        super(channel);
+    }
 
 }

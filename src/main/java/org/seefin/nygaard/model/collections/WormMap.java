@@ -14,81 +14,66 @@ import java.util.Map;
  * Note: this collection cannot implement the java.util.Map interface, as this would
  * not be type-safe (mutating operations would be visible, yet have to throw an
  * exception)
- * 
- * @param <K> Data type for Map keys 
- * @param <V> Data type for Map values
- * 
- * @author phillipsr
  *
+ * @param <K> Data type for Map keys
+ * @param <V> Data type for Map values
+ * @author phillipsr
  */
 public final class WormMap<K, V>
-	implements Serializable
-{
-	private final Map<K,V> map;
-	
-	public WormMap(Map<K, V> data)
-	{
-		if ( data == null)
-		{
-			throw new IllegalArgumentException ("ReadOnlyMap requires initial data");
-		}
-		map = Collections.unmodifiableMap ( data);
-	}
-	
-	public int size ()
-	{
-		return map.size();
-	}
+        implements Serializable {
+    private final Map<K, V> map;
 
-	public boolean isEmpty ()
-	{
-		return map.isEmpty ();
-	}
+    public WormMap(Map<K, V> data) {
+        if (data == null) {
+            throw new IllegalArgumentException("ReadOnlyMap requires initial data");
+        }
+        map = Collections.unmodifiableMap(data);
+    }
 
-	public boolean containsKey ( Object key)
-	{
-		return map.containsKey ( key);
-	}
+    public int size() {
+        return map.size();
+    }
 
-	public boolean containsValue ( Object value)
-	{
-		return map.containsValue ( value);
-	}
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
 
-	public V get ( Object key)
-	{
-		return map.get ( key);
-	}
+    public boolean containsKey(Object key) {
+        return map.containsKey(key);
+    }
 
-	public WormSet<K> keySet ()
-	{
-		return new WormSet<> ( map.keySet ());
-	}
+    public boolean containsValue(Object value) {
+        return map.containsValue(value);
+    }
 
-	public WormList<V> values ()
-	{
-		return new WormList<> ( map.values ());
-	}
+    public V get(Object key) {
+        return map.get(key);
+    }
 
-	public WormSet<java.util.Map.Entry<K, V>> entrySet ()
-	{
-		return new WormSet<> ( map.entrySet ());
-	}
-	
-	/**
-	 * @return a regular (e.g., read/write) copy of this map
-	 */
-	public Map<K,V>
-	toMap()
-	{
-		return new HashMap<>(map);
-	}
-	
-	@Override
-	public String
-	toString()
-	{
-		return map.toString ();
-	}
+    public WormSet<K> keySet() {
+        return new WormSet<>(map.keySet());
+    }
+
+    public WormList<V> values() {
+        return new WormList<>(map.values());
+    }
+
+    public WormSet<java.util.Map.Entry<K, V>> entrySet() {
+        return new WormSet<>(map.entrySet());
+    }
+
+    /**
+     * @return a regular (e.g., read/write) copy of this map
+     */
+    public Map<K, V>
+    toMap() {
+        return new HashMap<>(map);
+    }
+
+    @Override
+    public String
+    toString() {
+        return map.toString();
+    }
 
 }

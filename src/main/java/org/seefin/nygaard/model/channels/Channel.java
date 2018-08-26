@@ -20,45 +20,52 @@ import org.seefin.nygaard.model.parties.PartyRole;
  * by examining the channel information, particularly <code>agent</code>, we can decide
  * on whose behalf a request should be processed, and route accordingly (e.g., select
  * the correct business process or service instance - <i>Saga</i>)
- * 
- * @author phillipsr
  *
+ * @author phillipsr
  */
 public class Channel
-	implements Serializable
-{
-	private final PartyRole agent;
-	private final Identity reference;
-	
-	/**
-	 * Create a new channel, identifying the agent that is submitting requests
-	 * @param agent that is submitting requests through this channel
-	 * @param reference unique ID identifying the channel in the platform
-	 */
-	public Channel ( PartyRole agent, Identity reference)
-	{
-		if ( agent == null)
-		{
-			throw new IllegalArgumentException ( "Channel agent must be provided");
-		}
-		this.agent = agent;
-		if ( reference == null)
-		{
-			throw new IllegalArgumentException ( "Channel reference must be provided");
-		}
-		this.reference = reference;
-	}
-	
-	/** @return the agent that submitted the request */
-	public PartyRole getAgent() { return agent; }
-	/** @return the unique ID of the channel in the platform */
-	public Identity getIdentity() { return reference; }
-	public String getName() { return this.getClass().getSimpleName (); }
-	
-	@Override
-	public String
-	toString()
-	{
-		return getName() + "{agent=" + agent + ", id=" + reference + "}";
-	}
+        implements Serializable {
+    private final PartyRole agent;
+    private final Identity reference;
+
+    /**
+     * Create a new channel, identifying the agent that is submitting requests
+     *
+     * @param agent     that is submitting requests through this channel
+     * @param reference unique ID identifying the channel in the platform
+     */
+    public Channel(PartyRole agent, Identity reference) {
+        if (agent == null) {
+            throw new IllegalArgumentException("Channel agent must be provided");
+        }
+        this.agent = agent;
+        if (reference == null) {
+            throw new IllegalArgumentException("Channel reference must be provided");
+        }
+        this.reference = reference;
+    }
+
+    /**
+     * @return the agent that submitted the request
+     */
+    public PartyRole getAgent() {
+        return agent;
+    }
+
+    /**
+     * @return the unique ID of the channel in the platform
+     */
+    public Identity getIdentity() {
+        return reference;
+    }
+
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public String
+    toString() {
+        return getName() + "{agent=" + agent + ", id=" + reference + "}";
+    }
 }
